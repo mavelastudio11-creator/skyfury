@@ -5,5 +5,5 @@
     <string name="privacy_policy_open_link">Open Full Policy</string>
     <string name="privacy_policy_close">Close</string>
     <string name="privacy_policy_url">https://mavelastudio11-creator.github.io/skyfury/privacy-policy/</string>
-    <string name="privacy_policy_summary">Sky Fury uses online services to provide ads and in-app purchases.\n\nData processed by third-party services may include device and app identifiers, diagnostics, and purchase status required to deliver those features.\n\nTap \"Open Full Policy\" to view the complete public privacy policy page.</string>
+    <string name="privacy_policy_summary">Sky Fury uses online services to provide child-appropriate ads and in-app purchases.\n\nData processed by third-party services may include device and app identifiers, diagnostics, and purchase status required to deliver those features.\n\nTap \"Open Full Policy\" to view the complete public privacy policy page.</string>
 </resources>

@@ -12,8 +12,10 @@ import androidx.annotation.NonNull;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.RequestConfiguration;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
+import com.google.ads.mediation.admob.AdMobAdapter;
 
 public final class MainActivity extends Activity {
     private SkyFuryGameView gameView;
@@ -28,6 +30,7 @@ public final class MainActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         hideSystemUi();
 
+        configureChildDirectedAds();
         // Initialize Mobile Ads SDK
         MobileAds.initialize(this, initializationStatus -> {});
         loadInterstitialAd();
@@ -37,8 +40,21 @@ public final class MainActivity extends Activity {
         setContentView(gameView);
     }
 
+    private void configureChildDirectedAds() {
+        RequestConfiguration requestConfiguration = new RequestConfiguration.Builder()
+                .setTagForChildDirectedTreatment(RequestConfiguration.TAG_FOR_CHILD_DIRECTED_TREATMENT_TRUE)
+                .setTagForUnderAgeOfConsent(RequestConfiguration.TAG_FOR_UNDER_AGE_OF_CONSENT_TRUE)
+                .setMaxAdContentRating(RequestConfiguration.MAX_AD_CONTENT_RATING_G)
+                .build();
+        MobileAds.setRequestConfiguration(requestConfiguration);
+    }
+
     private void loadInterstitialAd() {
-        AdRequest adRequest = new AdRequest.Builder().build();
+        Bundle extras = new Bundle();
+        extras.putString("npa", "1");
+        AdRequest adRequest = new AdRequest.Builder()
+                .addNetworkExtrasBundle(AdMobAdapter.class, extras)
+                .build();
         InterstitialAd.load(this, AD_UNIT_ID, adRequest,
                 new InterstitialAdLoadCallback() {
                     @Override
